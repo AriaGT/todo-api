@@ -54,5 +54,5 @@ exports.deleteTask = async (req, res) => {
         res.json({ message: 'Tarea eliminada' });
     } catch (error) {
         res.status(500).json({ error: error.message });
-    };
+    }
 };
