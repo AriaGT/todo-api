@@ -4,7 +4,8 @@
   "description": "2024T2: Backend for TODO APP",
   "main": "app.js",
   "scripts": {
-    "dev": "nodemon app.js"
+    "dev": "nodemon app.js",
+    "build": "node app.js"
   },
   "repository": {
     "type": "git",
