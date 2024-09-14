@@ -6,7 +6,8 @@
   "scripts": {
     "migrate": "prisma migrate deploy",
     "generate": "prisma generate",
-    "build": "yarn run migrate && yarn run generate",
+    "start": "node app.js",
+    "build": "yarn run migrate && yarn run generate && yarn run start",
     "dev": "nodemon app.js"
   },
   "repository": {
