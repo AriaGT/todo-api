@@ -6,26 +6,29 @@ const jwt = require('jsonwebtoken');
 exports.login = async (req, res) => {
     const { email, password } = req.body;
     try {
-        const user = await prisma.user.findUnique({
+        let {
+            password: userPassword,
+            ...userData
+        } = await prisma.user.findUnique({
             where: { email },
         });
 
-        if (!user) {
+        if (!userData) {
             return res.status(401).json({ error: 'Credenciales inválidas' });
         }
 
-        const validPassword = await bcrypt.compare(password, user.password);
+        const validPassword = await bcrypt.compare(password, userPassword);
         if (!validPassword) {
             return res.status(401).json({ error: 'Credenciales inválidas' });
         }
 
         const token = jwt.sign(
-            { userId: user.id },
+            { userId: userData.id },
             process.env.JWT_SECRET, // En producción, usa una variable de entorno
             { expiresIn: '1h' }
         );
 
-        res.json({ token });
+        res.json({ user: userData, token });
     } catch (error) {
         res.status(500).json({ error: error.message });
     }
