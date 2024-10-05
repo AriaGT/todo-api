@@ -9,7 +9,7 @@ exports.createUser = async (req, res) => {
         const user = await prisma.user.create({
             data: {
                 name,
-                email,
+                email: email.toLowerCase().trim(),
                 password: hashedPassword,
             },
         });
@@ -47,7 +47,10 @@ exports.updateUser = async (req, res) => {
     try {
         const user = await prisma.user.update({
             where: { id: parseInt(id) },
-            data: { name, email },
+            data: {
+                name,
+                email: email.toLowerCase().trim(),
+            },
         });
         res.json(user);
     } catch (error) {
