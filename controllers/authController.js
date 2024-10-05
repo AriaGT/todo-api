@@ -10,7 +10,7 @@ exports.login = async (req, res) => {
             password: userPassword,
             ...userData
         } = await prisma.user.findUnique({
-            where: { email: email.toLocaleString() },
+            where: { email: email.toLowerCase().trim() },
         });
 
         if (!userData) {
